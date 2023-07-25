@@ -18,16 +18,15 @@ import vds.com.infra.service.JwkService
 import vds.com.infra.service.JwtUserService
 
 fun Application.loginResource(environment: ApplicationEnvironment) {
-
     val jwkService by inject<JwkService>()
     val jwtUserService by inject<JwtUserService>()
 
     val issuer = environment.config.property("jwt.issuer").getString()
 
     routing {
-        post("/token") {
+        post("/login") {
             val loginUser = call.receive<LoginUser>()
-            val user = jwtUserService.findUser(loginUser.entry1, loginUser.entry2)
+            val user = jwtUserService.findUser(loginUser.email, loginUser.password)
             if (user != null) {
                 val token = jwkService.generateToken(user.toDto(), issuer)
                 call.respond(hashMapOf("token" to token))
@@ -38,7 +37,7 @@ fun Application.loginResource(environment: ApplicationEnvironment) {
 
         authenticate {
             get("/home") {
-                call.respond("get authenticated value from token ${call.userDTO?.username} ${call.userDTO?.email}")
+                call.respond("get authenticated value from token ${call.userDTO?.username}")
             }
         }
 
