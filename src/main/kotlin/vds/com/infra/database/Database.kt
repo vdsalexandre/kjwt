@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
+import vds.com.infra.bootstrap.BcryptDataEncoder.bcryptEncode
 import vds.com.infra.model.Usersdb
 
 fun Application.configureDatabase() {
@@ -21,8 +22,8 @@ fun Application.configureDatabase() {
 
         Usersdb.insert {
             it[username] = "totoLeVigoureux"
-            it[password] = "\$2y\$10\$0mFhdro7G1G/yxYuXG5cpOKtfbRq1oMSdOxbl3pb1PHctXLM00j8S"
-            it[email] = "\$2y\$10\$V0SBm1doxIdVn3B4lYc9EOG7Z6G7IO5XTHAKSKEDHG/gj/L8DZeZC"
+            it[password] = String(bcryptEncode("toto123456789"))
+            it[email] = String(bcryptEncode("toto@noob.com"))
         }
     }
 }

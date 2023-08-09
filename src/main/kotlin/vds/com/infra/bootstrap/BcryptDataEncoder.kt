@@ -7,7 +7,7 @@ object BcryptDataEncoder {
 
     private const val saltRounds = 14
 
-    fun bcryptEncode(data: String) = Bcrypt.hash(data, saltRounds)
+    fun bcryptEncode(data: String): ByteArray = Bcrypt.hash(data, saltRounds)
 
-    fun bcryptVerify(data: String, hashedData: ByteArray) = Bcrypt.verify(data, hashedData)
+    fun bcryptVerify(data: String, hashedData: ByteArray): Boolean = Bcrypt.verify(data, hashedData)
 }

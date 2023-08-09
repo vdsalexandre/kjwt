@@ -26,6 +26,8 @@ class JwkService : JwkHandler {
             .require(withAlgorithm(generateKeyPair()))
             .withSubject("authentication")
             .withIssuer(issuer)
+            .withClaimPresence("username")
+            .withClaimPresence("email")
             .build()
     }
 
