@@ -6,12 +6,13 @@ import com.auth0.jwt.algorithms.Algorithm
 import java.security.KeyPair
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
+import vds.com.domain.model.SimpleUser
+import vds.com.domain.spi.JwtHandler
 import vds.com.infra.bootstrap.JwtConfig.generateKeyPair
-import vds.com.infra.model.UserDTO
 
-class JwkService : JwkHandler {
+class JwtService : JwtHandler {
 
-    override fun generateToken(user: UserDTO, issuer: String): String {
+    override fun generateToken(user: SimpleUser, issuer: String): String {
         return JWT
             .create()
             .withSubject("authentication")

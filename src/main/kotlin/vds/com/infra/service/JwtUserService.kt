@@ -4,11 +4,11 @@ import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import vds.com.domain.model.SimpleUser
-import vds.com.domain.spi.JwtUserRepository
+import vds.com.domain.spi.JwtUserHandler
 import vds.com.infra.bootstrap.BcryptDataEncoder.bcryptVerify
-import vds.com.infra.model.Usersdb
+import vds.com.infra.database.Usersdb
 
-class JwtUserService : JwtUserRepository {
+class JwtUserService : JwtUserHandler {
     override suspend fun findUser(email: String, password: String): SimpleUser? {
 
         return dbQuery {
@@ -20,7 +20,7 @@ class JwtUserService : JwtUserRepository {
                         it[Usersdb.password].toByteArray()
                     )
                 }
-                .map { SimpleUser(it[Usersdb.username], it[Usersdb.email]) }
+                .map { SimpleUser(it[Usersdb.email], it[Usersdb.username]) }
                 .singleOrNull()
         }
     }

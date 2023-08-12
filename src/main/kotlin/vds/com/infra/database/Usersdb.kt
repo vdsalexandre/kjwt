@@ -1,4 +1,4 @@
-package vds.com.infra.model
+package vds.com.infra.database
 
 import org.jetbrains.exposed.dao.id.LongIdTable
 

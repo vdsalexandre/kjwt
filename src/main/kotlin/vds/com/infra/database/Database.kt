@@ -6,7 +6,6 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import vds.com.infra.bootstrap.BcryptDataEncoder.bcryptEncode
-import vds.com.infra.model.Usersdb
 
 fun Application.configureDatabase() {
 

@@ -2,7 +2,7 @@ package vds.com.domain.spi
 
 import vds.com.domain.model.SimpleUser
 
-interface JwtUserRepository {
+interface JwtUserHandler {
 
     suspend fun findUser(email: String, password: String): SimpleUser?
 }
